@@ -118,7 +118,7 @@ app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
 });
 
-app.get("/images", (req, res) => {
+app.get("/images/", (req, res) => {
   res.send("Againsss");
 });
 
