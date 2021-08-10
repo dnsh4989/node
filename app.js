@@ -119,7 +119,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/images", (req, res) => {
-  res.send(images);
+  res.send("Againsss");
 });
 
 app.listen(process.env.PORT || port, () => {
