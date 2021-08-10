@@ -1,5 +1,4 @@
 const express = require("express");
-const { default: image } = require("next/image");
 const app = express();
 const port = 3000;
 
@@ -118,8 +117,8 @@ app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
 });
 
-app.get("/images/", (req, res) => {
-  res.send("Againsss");
+app.get("/images", (req, res) => {
+  res.send(images);
 });
 
 app.listen(process.env.PORT || port, () => {
