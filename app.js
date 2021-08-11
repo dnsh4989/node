@@ -1,10 +1,13 @@
 const express = require("express");
+const connectDB = require("./DB/conncection");
+const port = 3000;
 const bodyParser = require("body-parser");
 const app = express();
-const port = 3000;
+
+connectDB();
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-
 // parse application/json
 app.use(bodyParser.json());
 
@@ -118,6 +121,8 @@ const images = [
     url: "https://randomwordgenerator.com/img/picture-generator/53e1d1404f5aa414f1dc8460962e33791c3ad6e04e5077497c2a7cd4924ec7_640.jpg",
   },
 ];
+
+app.use("/images2", require("./routes/image"));
 
 app.use(function (req, res, next) {
   res.setHeader(
