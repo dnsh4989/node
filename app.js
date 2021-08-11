@@ -11,6 +11,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 const images = [
   {
     id: 1,
@@ -123,20 +137,6 @@ const images = [
 ];
 
 app.use("/images2", require("./routes/image"));
-
-app.use(function (req, res, next) {
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
 
 app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
