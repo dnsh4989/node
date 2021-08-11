@@ -1,5 +1,5 @@
 const express = require("express");
-const connectDB = require("./DB/conncection");
+const connectDB = require("./DB/connection");
 const port = 3000;
 const bodyParser = require("body-parser");
 const app = express();
