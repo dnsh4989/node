@@ -137,6 +137,7 @@ const images = [
 ];
 
 app.use("/images2", require("./routes/image"));
+app.use("/image", require("./routes/image"));
 
 app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
