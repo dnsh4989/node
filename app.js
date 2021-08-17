@@ -30,7 +30,7 @@ const images = [
     id: 1,
     date: null,
     tags: [],
-    url: "https://www.facebook.com/bbm827/photos/a.135230991614745/286752316462611/?type=3&theater",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIsZE6GRLFsvyf_9dm8L5s4wh6tDo6YVFptA&usqp=CAU",
   },
   {
     id: 2,
