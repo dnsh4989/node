@@ -2,6 +2,11 @@ const express = require("express");
 const connectDB = require("./DB/connection");
 const port = 3000;
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const passportLocal = require("passport-local").Strategy;
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
+const session = require("express-session");
 const app = express();
 
 connectDB();
@@ -141,6 +146,14 @@ app.use("/image", require("./routes/image"));
 
 app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
+});
+
+app.get("/signin", (req, res) => {
+  res.send("sign in");
+});
+
+app.get("/register", (req, res) => {
+  res.send("register");
 });
 
 app.get("/images", (req, res) => {
