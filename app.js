@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 
 app.use(
   cors({
-    origin: "https://dinu-node.herokuapp.com", // <-- location of the react app were connecting to
+    origin: "https://dinu.vercel.app", // <-- location of the react app were connecting to
     credentials: true,
   })
 );
