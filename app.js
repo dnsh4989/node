@@ -7,6 +7,7 @@ const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
+const User = require("./DB/user");
 const app = express();
 
 connectDB();
@@ -29,6 +30,18 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
+
+app.use(
+  session({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
 
 const images = [
   {
@@ -143,17 +156,41 @@ const images = [
 
 app.use("/images2", require("./routes/image"));
 app.use("/image", require("./routes/image"));
+app.use("/user", require("./routes/user"));
 
 app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
 });
 
-app.get("/signin", (req, res) => {
-  res.send("sign in");
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send("No User Exists");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send("Successfully Authenticated");
+        console.log(req.user);
+      });
+    }
+  })(req, res, next);
 });
 
-app.get("/register", (req, res) => {
-  res.send("register");
+aapp.post("/register", (req, res) => {
+  User.findOne({ username: req.body.username }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) res.send("User Already Exists");
+    if (!doc) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newUser = new User({
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.send("User Created");
+    }
+  });
 });
 
 app.get("/images", (req, res) => {
