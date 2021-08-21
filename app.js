@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./DB/connection");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const port = 3000;
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -177,7 +178,19 @@ app.post("/login", (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send("Successfully Authenticated");
+
+        // Create token
+        const token = jwt.sign(
+          { user_id: user._id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+        // save user token
+        user.token = token;
+
+        res.status(200).json(user);
         console.log(req.user);
       });
     }
@@ -196,7 +209,19 @@ app.post("/register", (req, res) => {
         password: hashedPassword,
       });
       await newUser.save();
-      res.send("User Created");
+
+      // Create token
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+      // save user token
+      user.token = token;
+
+      res.status(201).json(user);
     }
   });
 });
