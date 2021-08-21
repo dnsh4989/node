@@ -48,6 +48,7 @@ app.use(
   })
 );
 app.use(cookieParser("secretcode"));
+
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
@@ -180,13 +181,9 @@ app.post("/login", (req, res, next) => {
         if (err) throw err;
 
         // Create token
-        const token = jwt.sign(
-          { user_id: user._id, email },
-          process.env.TOKEN_KEY,
-          {
-            expiresIn: "2h",
-          }
-        );
+        const token = jwt.sign({ user_id: user._id, email }, "test", {
+          expiresIn: "2h",
+        });
         // save user token
         user.token = token;
 
@@ -211,13 +208,9 @@ app.post("/register", (req, res) => {
       await newUser.save();
 
       // Create token
-      const token = jwt.sign(
-        { user_id: user._id, email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
+      const token = jwt.sign({ user_id: user._id, email }, "test", {
+        expiresIn: "2h",
+      });
       // save user token
       user.token = token;
 
