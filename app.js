@@ -2,7 +2,7 @@ const express = require("express");
 const connectDB = require("./DB/connection");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const port = 3000;
+const port = 3001;
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
@@ -19,6 +19,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(
+  cors({
+    origin: "https://dinu.vercel.app/",
+    credentials: true,
+  })
+);
+
 app.use(function (req, res, next) {
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -32,13 +39,6 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
-
-app.use(
-  cors({
-    origin: "https://dinu.vercel.app", // <-- location of the react app were connecting to
-    credentials: true,
-  })
-);
 
 app.use(
   session({
