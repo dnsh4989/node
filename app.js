@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./DB/connection");
+const cors = require("cors");
 const port = 3000;
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -30,6 +31,13 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
+
+app.use(
+  cors({
+    origin: "https://dinu-node.herokuapp.com", // <-- location of the react app were connecting to
+    credentials: true,
+  })
+);
 
 app.use(
   session({
