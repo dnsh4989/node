@@ -176,7 +176,7 @@ app.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-aapp.post("/register", (req, res) => {
+app.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
