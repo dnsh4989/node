@@ -35,8 +35,7 @@ app.use(function (req, res, next) {
 
 app.use(
   cors({
-    origin: "https://dinu.vercel.app",
-    credentials: true,
+    origin: false,
   })
 );
 
