@@ -33,12 +33,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(
-  cors({
-    origin: "https://dinu.vercel.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://dinu.vercel.app",
+//     credentials: true,
+//   })
+// );
 
 app.use(
   session({
@@ -172,7 +172,7 @@ app.get("/", (req, res) => {
   res.send("Hey this is NodeJs");
 });
 
-app.post("/login", (req, res, next) => {
+app.post("/login", cors(), (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
@@ -194,7 +194,7 @@ app.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", cors(), (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
@@ -219,7 +219,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.get("/images", (req, res) => {
+app.get("/images", cors(), (req, res) => {
   res.send(images);
 });
 
