@@ -19,12 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(
-  cors({
-    origin: "https://dinu.vercel.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://dinu.vercel.app",
+//     credentials: true,
+//   })
+// );
 
 app.use(function (req, res, next) {
   res.setHeader(
