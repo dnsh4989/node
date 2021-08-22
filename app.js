@@ -33,12 +33,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(
-//   cors({
-//     origin: "https://dinu.vercel.app",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://dinu.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(
   session({
