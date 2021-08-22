@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "https://dinu.vercel.app/",
+    origin: "https://dinu.vercel.app",
     credentials: true,
   })
 );
